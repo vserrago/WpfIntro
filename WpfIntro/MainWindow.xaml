@@ -69,11 +69,20 @@
             </StackPanel>
         </StackPanel>
 
-        <!--<DataGrid
+        <DataGrid
             Grid.Row="1"
+            Grid.Column="0"
             Grid.ColumnSpan="2"
             ItemsSource="{Binding Students}"
-            AutoGenerateColumns="False">
+            AutoGenerateColumns="False"
+            SelectedItem="{Binding SelectedStudent,
+                UpdateSourceTrigger=PropertyChanged,
+                Mode=TwoWay,
+                ValidatesOnDataErrors=True}"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserResizeRows="False"
+            IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="First Name"
@@ -85,8 +94,9 @@
                     Header="Student Number"
                     Binding="{Binding StudentNumber}" />
             </DataGrid.Columns>
-        </DataGrid>-->
-        <ListView
+        </DataGrid>
+
+        <!--<ListView
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2"
@@ -126,6 +136,6 @@
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
     </Grid>
 </Window>
