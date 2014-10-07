@@ -4,75 +4,131 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="MainWindow"
     Height="500"
-    Width="600">
+    Width="600"
+    MinHeight="300"
+    MinWidth="400">
+    <Window.Resources>
+        <Style
+            x:Key="ButtonStyle"
+            TargetType="Button">
+            <Setter
+                Property="Margin"
+                Value="5" />
+        </Style>
+        <Style
+            x:Key="LabelStyle"
+            TargetType="TextBlock">
+            <Setter
+                Property="Grid.Column"
+                Value="1" />
+            <Setter
+                Property="HorizontalAlignment"
+                Value="Left" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+
+            <Setter
+                Property="Margin"
+                Value="5" />
+        </Style>
+        <Style
+            x:Key="TextBoxStyle"
+            TargetType="TextBox">
+            <Setter
+                Property="Grid.Column"
+                Value="2" />
+            <Setter
+                Property="VerticalAlignment"
+                Value="Center" />
+            <Setter
+                Property="Margin"
+                Value="5" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="Auto" />
-            <RowDefinition />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="150" />
             <ColumnDefinition
                 Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <StackPanel
+            Grid.Row="0"
+            Grid.RowSpan="4"
             Orientation="Vertical"
-            HorizontalAlignment="Center">
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0,5">
             <Button
+                Style="{StaticResource ButtonStyle}"
                 Content="Add Student"
                 Command="{Binding AddNewStudent}" />
             <Button
+                Style="{StaticResource ButtonStyle}"
                 Content="Delete Student"
                 Command="{Binding DeleteSelectedStudent}" />
             <Button
+                Style="{StaticResource ButtonStyle}"
                 Content="Open File"
                 Command="{Binding ReadFromFile}" />
             <Button
+                Style="{StaticResource ButtonStyle}"
                 Content="Save to File"
                 Command="{Binding SaveToFile}" />
         </StackPanel>
 
-        <StackPanel
-            Orientation="Vertical"
-            Grid.Column="1"
+        <TextBlock
+            Style="{StaticResource LabelStyle}"
             Grid.Row="0"
-            HorizontalAlignment="Stretch">
-            <StackPanel
-                Orientation="Horizontal">
-                <TextBlock
-                    Text="First name" />
-                <TextBox
-                    Text="{Binding SelectedStudent.FirstName,
+            Text="First name" />
+        <TextBlock
+            Style="{StaticResource LabelStyle}"
+            Grid.Row="1"
+            Text="Last name" />
+        <TextBlock
+            Style="{StaticResource LabelStyle}"
+            Grid.Row="2"
+            Text="Student Number" />
+
+        <TextBox
+            Style="{StaticResource TextBoxStyle}"
+            Grid.Row="0"
+            Text="{Binding SelectedStudent.FirstName,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel
-                Orientation="Horizontal">
-                <TextBlock
-                    Text="Last name" />
-                <TextBox
-                    Text="{Binding SelectedStudent.LastName,
+        <TextBox
+            Style="{StaticResource TextBoxStyle}"
+            Grid.Row="1"
+            Text="{Binding SelectedStudent.LastName,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-            <StackPanel
-                Orientation="Horizontal">
-                <TextBlock
-                    Text="Student Number" />
-                <TextBox
-                    Text="{Binding SelectedStudent.StudentNumber,
+        <TextBox
+            Style="{StaticResource TextBoxStyle}"
+            Grid.Row="2"
+            Text="{Binding SelectedStudent.StudentNumber,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </StackPanel>
 
         <DataGrid
-            Grid.Row="1"
+            Grid.Row="4"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             ItemsSource="{Binding Students}"
             AutoGenerateColumns="False"
             SelectedItem="{Binding SelectedStudent,
@@ -86,13 +142,16 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Header="First Name"
-                    Binding="{Binding FirstName}" />
+                    Binding="{Binding FirstName}"
+                    Width="*" />
                 <DataGridTextColumn
                     Header="Last Name"
-                    Binding="{Binding LastName}" />
+                    Binding="{Binding LastName}"
+                    Width="*" />
                 <DataGridTextColumn
                     Header="Student Number"
-                    Binding="{Binding StudentNumber}" />
+                    Binding="{Binding StudentNumber}"
+                    Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 
