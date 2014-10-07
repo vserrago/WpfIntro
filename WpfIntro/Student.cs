@@ -11,6 +11,9 @@ namespace WpfIntro
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public Student()
+        { }
+
         public Student(string firstName, string lastName, string studentNumber)
         {
             FirstName = firstName;
