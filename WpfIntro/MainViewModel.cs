@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -37,11 +38,35 @@ namespace WpfIntro
 
             ReadFromFile = new RelayCommand(
                 canExecute: () => true,
-                execute: () => { });
+                execute: () =>
+                {
+                    var openDialog = new OpenFileDialog();
+                    var result = openDialog.ShowDialog();
+
+                    if (result == true)
+                    {
+                        //Paramater is not used so pass in null
+                        if (ClearStudents.CanExecute(null))
+                            ClearStudents.Execute(null);
+
+                        var students = FileIo.ReadStudentsFromCsv(openDialog.FileName);
+                        foreach (var s in students)
+                        {
+                            Students.Add(s);
+                        }
+                    }
+                });
 
             SaveToFile = new RelayCommand(
                 canExecute: () => 0 < Students.Count,
-                execute: () => { });
+                execute: () =>
+                {
+                    var saveDialog = new SaveFileDialog();
+                    var result = saveDialog.ShowDialog();
+
+                    if (result == true)
+                        FileIo.WriteStudentsToCsv(Students, saveDialog.FileName);
+                });
         }
 
         public ICommand AddNewStudent { get; private set; }
