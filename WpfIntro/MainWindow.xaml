@@ -85,6 +85,10 @@
                 Command="{Binding DeleteSelectedStudent}" />
             <Button
                 Style="{StaticResource ButtonStyle}"
+                Content="Clear Student List"
+                Command="{Binding ClearStudents}" />
+            <Button
+                Style="{StaticResource ButtonStyle}"
                 Content="Open File"
                 Command="{Binding ReadFromFile}" />
             <Button

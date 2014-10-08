@@ -14,31 +14,41 @@ namespace WpfIntro
         {
             _students = new ObservableCollection<Student>();
 
+            InitCommands();
+        }
+
+        private void InitCommands()
+        {
             AddNewStudent = new RelayCommand(
                 canExecute: () => true,
                 execute: () => Students.Add(new Student("First", "Last", "000000000")));
 
+            ClearStudents = new RelayCommand(
+                canExecute: () => 0 < Students.Count,
+                execute: () => Students.Clear());
+
             DeleteSelectedStudent = new RelayCommand(
-                canExecute: () => true,
+                canExecute: () => SelectedStudent != null,
                 execute: () =>
                 {
                     if (SelectedStudent != null)
                         Students.Remove(SelectedStudent);
                 });
 
-            SaveToFile = new RelayCommand(
+            ReadFromFile = new RelayCommand(
                 canExecute: () => true,
                 execute: () => { });
 
-            ReadFromFile = new RelayCommand(
-                canExecute: () => true,
+            SaveToFile = new RelayCommand(
+                canExecute: () => 0 < Students.Count,
                 execute: () => { });
         }
 
         public ICommand AddNewStudent { get; private set; }
+        public ICommand ClearStudents { get; private set; }
         public ICommand DeleteSelectedStudent { get; private set; }
-        public ICommand SaveToFile { get; private set; }
         public ICommand ReadFromFile { get; private set; }
+        public ICommand SaveToFile { get; private set; }
 
         public ObservableCollection<Student> Students
         {
